@@ -40,15 +40,15 @@ function DecodeBoardInfo{
     Write-Verbose "Manufacturer: $manufacturer"
     Write-Verbose "Signature: $signature"
     if($Global:MSPAPIVersion -ge [version]::new(1,41,0)){
-        [MCUType]$mcuType = [MCUType]($databytes[[int]$sigend+1])
+        [McuType]$mcuType = [MCUType]($databytes[[int]$sigend+1])
     }else{
-        [MCUType]$mcuType = 255
+        [McuType]$mcuType = 255
     }
     Write-Verbose "MCU Type: $mcuType"
     if($Global:MSPAPIVersion -ge [version]::new(1,42,0)){
-        [CONFIGURATIONSTATE]$configState = [CONFIGURATIONSTATE]($databytes[[int]$sigend+2])
+        [ConfigurationState]$configState = [ConfigurationState]($databytes[[int]$sigend+2])
     }else{
-        [CONFIGURATIONSTATE]$configState = 255
+        [ConfigurationState]$configState = 255
     }
     Write-Verbose "Configuration State: $configState"
     $info = [MSPBoardInfo]@{
@@ -57,11 +57,50 @@ function DecodeBoardInfo{
         Type = $boardtype
         Capabilities = $capabilities
         TargetName = $targetname
-        BoardName = $boardname
+        Name = $boardname
         ManufacturerID = $manufacturer
         Signature = $signature
         MCUType = $mcuType
-        ConfigState = $configState
+        ConfigurationState = $configState
     }
     return $info
 }
+
+    function DecodeStatusEx{
+        [cmdletbinding()]
+        Param(
+            [byte[]]$databytes
+        )
+
+        Write-Verbose "API Version: $Global:MSPAPIVersion"
+        $cycletime = [System.BitConverter]::ToUInt16($databytes,8)
+        $i2cError = [System.BitConverter]::ToUInt16($databytes,10)
+        $activeSensors = [System.BitConverter]::ToUInt16($databytes,12)
+        $mode = [System.BitConverter]::ToUInt32($databytes,14)
+        $fcprofile = [int]($databytes[18])
+        $cpuload =  [System.BitConverter]::ToUInt16($databytes,19)
+        if($Global:MSPAPIVersion -ge [version]::new(1,16,0)){
+            $profilecount = [int]($databytes[21])
+            $rateprofile = [int]($databytes[22])
+            if($Global:MSPAPIVersion -ge [version]::new(1,36,0)){
+                $count = [int]($databytes[23])
+                $disableCount  = [int]($databytes[24 + $count])
+                $disableFlags = [System.BitConverter]::ToUInt32($databytes, 25 + $count)
+            }
+        }
+        if($disableCount -gt 0){$disabled = $True}
+        $status = [MSPStatusEx]@{
+            CycleTime = $cycletime
+            I2cError = $i2cError
+            ActiveSensors = $activeSensors
+            Mode = $mode
+            Profile = $fcprofile
+            CPULoad = $cpuload
+            ProfileCount = $profilecount
+            RateProfile = $rateprofile
+            ArmingDisableCount = $disableCount
+            ArmingDisableFlags = $disableFlags
+            ArmingDisabled = $disabled
+        }
+        return $status
+    }

@@ -86,6 +86,19 @@ function Get-FCVersion{
     return $version
 }
 
+function Get-StatusEx{
+    [cmdletbinding()]
+    Param()
+    $null = Get-MSPAPIVersion -Verbose:$VerbosePreference
+    [byte[]]$v2request = get_v2_message -function MSP_STATUS_EX -Verbose:$VerbosePreference
+    $ns = [string]([System.Text.Encoding]::ASCII.GetString($v2request))
+    Write-Verbose "Sending: $ns"
+    $response = send_message_and_get_response -message $v2request -port $Global:ComPort -Verbose:$VerbosePreference
+    $ns = [string]([System.Text.Encoding]::ASCII.GetString($response))
+    Write-Verbose "Recived: $ns"
+    Return DecodeStatusEx -databytes $response -Verbose:$VerbosePreference
+}
+
 function Get-RawMSPResponse{
     [cmdletbinding()]
     Param(

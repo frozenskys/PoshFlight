@@ -1,4 +1,4 @@
-Enum MCUTYPE 
+Enum McuType 
 {
     SIMULATOR = 0
     F103 = 1
@@ -13,14 +13,14 @@ Enum MCUTYPE
     Unknown = 255
 }
 
-Enum CONFIGURATIONSTATE {
+Enum ConfigurationState {
     Defaults_Bare =  0
     Defaults_Custom = 1
     Configured = 2
     Unknown = 255
 }
 
-Enum CAPABILITIES_FLAG {
+Enum CapabilitiesFlag {
     HAS_VCP= 0
     HAS_SOFTSERIAL= 1
     IS_UNIFIED= 2
