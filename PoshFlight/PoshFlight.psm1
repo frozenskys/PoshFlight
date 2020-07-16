@@ -73,6 +73,33 @@ function Get-FCVariant{
     return [string]([System.Text.Encoding]::ASCII.GetString($response[8..11]))
 }
 
+function Get-FCName{
+    [cmdletbinding()]
+    Param()
+    [byte[]]$v2request = get_v2_message -function MSP_NAME -Verbose:$VerbosePreference
+    $ns = [string]([System.Text.Encoding]::ASCII.GetString($v2request))
+    Write-Verbose "Sending: $ns"
+    $response = send_message_and_get_response -message $v2request -port $Global:ComPort -Verbose:$VerbosePreference
+    $ns = [string]([System.Text.Encoding]::ASCII.GetString($response))
+    Write-Verbose "Recived: $ns"
+    return [string]([System.Text.Encoding]::ASCII.GetString($response[8..($response.Length - 2)]))
+}
+
+function Set-FCName{
+    [cmdletbinding()]
+    Param(
+        [string]$Name
+    )
+    $encoding = [System.Text.Encoding]::UTF8
+    [byte[]]$namedata = $encoding.GetBytes($Name)
+    [byte[]]$v2request = get_v2_message -function MSP_SET_NAME -databytes $namedata -Verbose:$VerbosePreference
+    $ns = [string]([System.Text.Encoding]::ASCII.GetString($v2request))
+    Write-Verbose "Sending: $ns"
+    $response = send_message_and_get_response -message $v2request -port $Global:ComPort -Verbose:$VerbosePreference
+    $ns = [string]([System.Text.Encoding]::ASCII.GetString($response))
+    Write-Verbose "Recived: $ns"
+}
+
 function Get-FCVersion{
     [cmdletbinding()]
     Param()

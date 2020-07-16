@@ -49,6 +49,9 @@ function get_v2_Message{
     [byte[]]$v2data = 0x00
     $v2data += [System.BitConverter]::GetBytes([int16]$function)
     $v2data += [System.BitConverter]::GetBytes([int16]$databytes.Length)
+    if($null -ne $databytes){
+      $v2data += $databytes
+    }
     $v2checksum = [byte]0
     foreach($b in $v2data){
       $v2checksum = crc8_dvb_s2 -crc $v2checksum -a $b
