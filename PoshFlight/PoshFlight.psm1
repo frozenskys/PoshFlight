@@ -17,6 +17,19 @@ function Set-ComPort{
     Write-Verbose "ComPort set to : $Global:ComPort"
 }
 
+function Get-RawMSPResponse{
+    [cmdletbinding()]
+    Param(
+        [MSPCode]$MSPfunction
+    )
+    [byte[]]$v2request = get_v2_message -function $MSPfunction -Verbose:$VerbosePreference
+    $ns = [string]([System.Text.Encoding]::ASCII.GetString($v2request))
+    Write-Verbose "Sending: $ns"
+    $response = send_message_and_get_response -message $v2request -port $Global:ComPort -Verbose:$VerbosePreference
+    $ns = [string]([System.Text.Encoding]::ASCII.GetString($response))
+    Write-Verbose "Recived: $ns"
+}
+
 function Get-BoardInfo{
     [cmdletbinding()]
     Param()
@@ -126,15 +139,15 @@ function Get-StatusEx{
     Return DecodeStatusEx -databytes $response -Verbose:$VerbosePreference
 }
 
-function Get-RawMSPResponse{
+function Get-BatteryConfig{
     [cmdletbinding()]
-    Param(
-        [MSPCode]$MSPfunction
-    )
-    [byte[]]$v2request = get_v2_message -function $MSPfunction -Verbose:$VerbosePreference
+    Param()
+    $null = Get-MSPAPIVersion -Verbose:$VerbosePreference
+    [byte[]]$v2request = get_v2_message -function MSP_BATTERY_CONFIG -Verbose:$VerbosePreference
     $ns = [string]([System.Text.Encoding]::ASCII.GetString($v2request))
     Write-Verbose "Sending: $ns"
     $response = send_message_and_get_response -message $v2request -port $Global:ComPort -Verbose:$VerbosePreference
     $ns = [string]([System.Text.Encoding]::ASCII.GetString($response))
     Write-Verbose "Recived: $ns"
+    Return DecodeBatteryConfig -databytes $response -Verbose:$VerbosePreference
 }

@@ -66,41 +66,68 @@ function DecodeBoardInfo{
     return $info
 }
 
-    function DecodeStatusEx{
-        [cmdletbinding()]
-        Param(
-            [byte[]]$databytes
-        )
+function DecodeStatusEx{
+    [cmdletbinding()]
+    Param(
+        [byte[]]$databytes
+    )
 
-        Write-Verbose "API Version: $Global:MSPAPIVersion"
-        $cycletime = [System.BitConverter]::ToUInt16($databytes,8)
-        $i2cError = [System.BitConverter]::ToUInt16($databytes,10)
-        $activeSensors = [System.BitConverter]::ToUInt16($databytes,12)
-        $mode = [System.BitConverter]::ToUInt32($databytes,14)
-        $fcprofile = [int]($databytes[18])
-        $cpuload =  [System.BitConverter]::ToUInt16($databytes,19)
-        if($Global:MSPAPIVersion -ge [version]::new(1,16,0)){
-            $profilecount = [int]($databytes[21])
-            $rateprofile = [int]($databytes[22])
-            if($Global:MSPAPIVersion -ge [version]::new(1,36,0)){
-                $count = [int]($databytes[23])
-                $disableCount  = [int]($databytes[24 + $count])
-                $disableFlags = [System.BitConverter]::ToUInt32($databytes, 25 + $count)
-            }
+    Write-Verbose "API Version: $Global:MSPAPIVersion"
+    $cycletime = [System.BitConverter]::ToUInt16($databytes,8)
+    $i2cError = [System.BitConverter]::ToUInt16($databytes,10)
+    $activeSensors = [System.BitConverter]::ToUInt16($databytes,12)
+    $mode = [System.BitConverter]::ToUInt32($databytes,14)
+    $fcprofile = [int]($databytes[18])
+    $cpuload =  [System.BitConverter]::ToUInt16($databytes,19)
+    if($Global:MSPAPIVersion -ge [version]::new(1,16,0)){
+        $profilecount = [int]($databytes[21])
+        $rateprofile = [int]($databytes[22])
+        if($Global:MSPAPIVersion -ge [version]::new(1,36,0)){
+            $count = [int]($databytes[23])
+            $disableCount  = [int]($databytes[24 + $count])
+            $disableFlags = [System.BitConverter]::ToUInt32($databytes, 25 + $count)
         }
-        if($disableCount -gt 0){$disabled = $True}
-        $status = [MSPStatusEx]@{
-            CycleTime = $cycletime
-            I2cError = $i2cError
-            ActiveSensors = $activeSensors
-            Mode = $mode
-            Profile = $fcprofile
-            CPULoad = $cpuload
-            ProfileCount = $profilecount
-            RateProfile = $rateprofile
-            ArmingDisableCount = $disableCount
-            ArmingDisableFlags = $disableFlags
-            ArmingDisabled = $disabled
-        }
-        return $status
     }
+    if($disableCount -gt 0){$disabled = $True}
+    $status = [MSPStatusEx]@{
+        CycleTime = $cycletime
+        I2cError = $i2cError
+        ActiveSensors = $activeSensors
+        Mode = $mode
+        Profile = $fcprofile
+        CPULoad = $cpuload
+        ProfileCount = $profilecount
+        RateProfile = $rateprofile
+        ArmingDisableCount = $disableCount
+        ArmingDisableFlags = $disableFlags
+        ArmingDisabled = $disabled
+    }
+    return $status
+}
+
+function DecodeBatteryConfig {
+    [cmdletbinding()]
+    Param(
+        [byte[]]$databytes
+    )
+    $VBatMinCellVoltage = [int]($databytes[8]) / 10
+    $VBatMaxCellVoltage = [int]($databytes[9]) / 10
+    $VBatWarningCellVoltage = [int]($databytes[10]) / 10
+    $Capacity = [System.BitConverter]::ToUInt16($databytes,11)
+    $VoltageMeterSource = [int]($databytes[13])
+    $CurrentMeterSource = [int]($databytes[14])
+    if($Global:MSPAPIVersion -ge [version]::new(1,41,0)){
+        $VBatMinCellVoltage = [System.BitConverter]::ToUInt16($databytes,15) / 100
+        $VBatMaxCellVoltage = [System.BitConverter]::ToUInt16($databytes,17) / 100
+        $VBatWarningCellVoltage = [System.BitConverter]::ToUInt16($databytes,19) / 100
+    }
+    $config = [BatteryConfig]@{
+        VBatMinCellVoltage = $VBatMinCellVoltage
+        VBatMaxCellVoltage = $VBatMaxCellVoltage
+        VBatWarningCellVoltage = $VBatWarningCellVoltage
+        Capacity = $Capacity
+        VoltageMeterSource = $VoltageMeterSource
+        CurrentMeterSource = $CurrentMeterSource
+    }
+    return $config
+}

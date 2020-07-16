@@ -72,3 +72,13 @@ class FlightControllerConfig
     [ValidateNotNullOrEmpty()][int]$SampleRateHz
     [ValidateNotNullOrEmpty()][int]$ConfigurationProblems
 }
+
+class BatteryConfig
+{
+    [ValidateNotNullOrEmpty()][string]$VBatMinCellVoltage
+    [ValidateNotNullOrEmpty()][string]$VBatMaxCellVoltage
+    [ValidateNotNullOrEmpty()][string]$VBatWarningCellVoltage
+    [ValidateNotNullOrEmpty()][string]$Capacity
+    [ValidateNotNullOrEmpty()][string]$VoltageMeterSource
+    [ValidateNotNullOrEmpty()][string]$CurrentMeterSource
+}
