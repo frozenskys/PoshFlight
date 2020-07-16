@@ -12,8 +12,11 @@ class MSPBoardInfo
     [ValidateNotNullOrEmpty()][string]$Identifier
     [ValidateNotNullOrEmpty()][string]$Version
     [ValidateNotNullOrEmpty()][string]$Type
-    [ValidateNotNullOrEmpty()][string]$Capabilities
+    [ValidateNotNullOrEmpty()][byte]$Capabilities
     [ValidateNotNullOrEmpty()][string]$TargetName
     [ValidateNotNullOrEmpty()][string]$BoardName
-    [ValidateNotNullOrEmpty()][string]$Manufacturer
+    [ValidateNotNullOrEmpty()][string]$ManufacturerID
+    [ValidateNotNullOrEmpty()][string]$Signature
+    [ValidateNotNullOrEmpty()][MCUType]$MCUType
+    [CONFIGURATIONSTATE]$ConfigState
 }

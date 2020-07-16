@@ -20,28 +20,14 @@ function Set-ComPort{
 function Get-BoardInfo{
     [cmdletbinding()]
     Param()
-    if($null -eq $Global:MSPAPIVersion){
-        $null = Get-MSPAPIVersion -Verbose:$VerbosePreference
-    }
+    $null = Get-MSPAPIVersion -Verbose:$VerbosePreference
     [byte[]]$v2request = get_v2_message -function MSP_BOARD_INFO -Verbose:$VerbosePreference
     $ns = [string]([System.Text.Encoding]::ASCII.GetString($v2request))
     Write-Verbose "Sending: $ns"
     $response = send_message_and_get_response -message $v2request -port $Global:ComPort -Verbose:$VerbosePreference
     $ns = [string]([System.Text.Encoding]::ASCII.GetString($response))
     Write-Verbose "Recived: $ns"
-    [int]$tnameend = 16 + [int]($response[16])
-    [int]$bnameend = $tnameend + [int]($response[$tnameend+1]) + 1
-    [int]$mnameend = $bnameend + [int]($response[$bnameend+1]) + 1
-    $info = [MSPBoardInfo]@{
-        Identifier = [string]([System.Text.Encoding]::ASCII.GetString($response[8..11]))
-        Version = [System.BitConverter]::ToUInt16($response,12)
-        Type = [int]($response[14])
-        Capabilities = [int]($response[15])
-        TargetName = [string]([System.Text.Encoding]::ASCII.GetString($response[17..$tnameend]))
-        BoardName = [string]([System.Text.Encoding]::ASCII.GetString($response[([int]$tnameend+2)..$bnameend]))
-        Manufacturer = [string]([System.Text.Encoding]::ASCII.GetString($response[([int]$bnameend+2)..$mnameend]))
-    }
-    return $info
+    Return DecodeBoardInfo -databytes $response -Verbose:$VerbosePreference
 }
 
 function Get-BuildInfo{
