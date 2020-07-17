@@ -7,7 +7,7 @@ function DecodeBoardInfo{
     $Identifier = [string]([System.Text.Encoding]::ASCII.GetString($databytes[8..11]))
     Write-Verbose "Board Identifier: $Identifier"
     $version = [System.BitConverter]::ToUInt16($databytes,12)
-    Write-Verbose "Board Version: $version"
+    Write-Verbose "Hardware Revision: $version"
     if($Global:MSPAPIVersion -ge [version]::new(1,35,0)){
         $boardtype = [BoardType]($databytes[14])
     }else{
@@ -51,9 +51,15 @@ function DecodeBoardInfo{
         [ConfigurationState]$configState = 255
     }
     Write-Verbose "Configuration State: $configState"
+    if($Global:MSPAPIVersion -ge [version]::new(1,43,0)){
+        [uint16]$gyrohz = [System.BitConverter]::ToUInt16($databytes,[int]$sigend+3)
+    }else{
+        [uint16]$gyrohz = 0
+    }
+    Write-Verbose "Gyro Sample Rate Hz: $gyrohz"
     $info = [MSPBoardInfo]@{
         Identifier = $Identifier
-        Version = $version
+        HardwareRevision = $version
         Type = $boardtype
         Capabilities = $capabilities
         TargetName = $targetname
@@ -62,6 +68,7 @@ function DecodeBoardInfo{
         Signature = $signature
         MCUType = $mcuType
         ConfigurationState = $configState
+        GyroSampleRateHz = $gyrohz
     }
     return $info
 }

@@ -10,7 +10,7 @@ class MSPBoardInfo
 {
     # Optionally, add attributes to prevent invalid values
     [ValidateNotNullOrEmpty()][string]$Identifier
-    [ValidateNotNullOrEmpty()][string]$Version
+    [ValidateNotNullOrEmpty()][Uint16]$HardwareRevision
     [ValidateNotNullOrEmpty()][BoardType]$Type
     [ValidateNotNullOrEmpty()][CapabilitiesFlag]$Capabilities
     [ValidateNotNullOrEmpty()][string]$TargetName
@@ -19,6 +19,7 @@ class MSPBoardInfo
     [ValidateNotNullOrEmpty()][string]$Signature
     [ValidateNotNullOrEmpty()][McuType]$MCUType
     [ValidateNotNullOrEmpty()][ConfigurationState]$ConfigurationState
+    [ValidateNotNullOrEmpty()][uint16]$GyroSampleRateHz
 }
 
 class MSPStatusEx
