@@ -19,6 +19,8 @@ Issue the MSP_API_VERSION command to find out if the firmware supports them.
 | MSP_BATTERY_CONFIG | 32 | BatteryConfig | Gets the battery info |
 | MSP_SET_BATTERY_CONFIG | 33 | BatteryConfig | Sets the battery info |
 
+## Currently UnImplemented in PoshFlight
+
     MSP_MODE_RANGES:                34,
     MSP_SET_MODE_RANGE:             35,
     MSP_FEATURE_CONFIG:             36,
@@ -82,10 +84,10 @@ Issue the MSP_API_VERSION command to find out if the firmware supports them.
     MSP_SET_PID_ADVANCED:           95,
     MSP_SENSOR_CONFIG:              96,
     MSP_SET_SENSOR_CONFIG:          97,
-    //MSP_SPECIAL_PARAMETERS:         98, // DEPRECATED
+    MSP_SPECIAL_PARAMETERS:         98, // DEPRECATED
     MSP_ARMING_DISABLE:             99,
-    //MSP_SET_SPECIAL_PARAMETERS:     99, // DEPRECATED
-    //MSP_IDENT:                      100, // DEPRECTED
+    MSP_SET_SPECIAL_PARAMETERS:     99, // DEPRECATED
+    MSP_IDENT:                      100, // DEPRECTED
     MSP_STATUS:                     101,
     MSP_RAW_IMU:                    102,
     MSP_SERVO:                      103,
@@ -98,7 +100,7 @@ Issue the MSP_API_VERSION command to find out if the firmware supports them.
     MSP_ANALOG:                     110,
     MSP_RC_TUNING:                  111,
     MSP_PID:                        112,
-    //MSP_BOX:                        113, // DEPRECATED 
+    MSP_BOX:                        113, // DEPRECATED 
     MSP_MISC:                       114, // DEPRECATED
     MSP_BOXNAMES:                   116,
     MSP_PIDNAMES:                   117,
@@ -109,36 +111,27 @@ Issue the MSP_API_VERSION command to find out if the firmware supports them.
     MSP_RC_DEADBAND:                125,
     MSP_SENSOR_ALIGNMENT:           126,
     MSP_LED_STRIP_MODECOLOR:        127,
-
     MSP_VOLTAGE_METERS:             128,
     MSP_CURRENT_METERS:             129,
     MSP_BATTERY_STATE:              130,
     MSP_MOTOR_CONFIG:               131,
     MSP_GPS_CONFIG:                 132,
-// Removed:   MSP_COMPASS_CONFIG:             133,
+:   MSP_COMPASS_CONFIG:             133, // Removed
     MSP_GPS_RESCUE:                 135,
-
     MSP_VTXTABLE_BAND:              137,
     MSP_VTXTABLE_POWERLEVEL:        138,
-
     MSP_MOTOR_TELEMETRY:            139,
-
     MSP_STATUS_EX:                  150,
-
     MSP_UID:                        160,
     MSP_GPS_SV_INFO:                164,
-
     MSP_DISPLAYPORT:                182,
-
     MSP_COPY_PROFILE:               183,
-
     MSP_BEEPER_CONFIG:              184,
     MSP_SET_BEEPER_CONFIG:          185,
-
     MSP_SET_RAW_RC:                 200,
     MSP_SET_RAW_GPS:                201, // Not used
     MSP_SET_PID:                    202,
-    //MSP_SET_BOX:                    203, // DEPRECATED
+    MSP_SET_BOX:                    203, // DEPRECATED
     MSP_SET_RC_TUNING:              204,
     MSP_ACC_CALIBRATION:            205,
     MSP_MAG_CALIBRATION:            206,
@@ -156,14 +149,11 @@ Issue the MSP_API_VERSION command to find out if the firmware supports them.
     MSP_SET_LED_STRIP_MODECOLOR:    221,
     MSP_SET_MOTOR_CONFIG:           222,
     MSP_SET_GPS_CONFIG:             223,
-// Removed:    MSP_SET_COMPASS_CONFIG:         224,
+    MSP_SET_COMPASS_CONFIG:         224, // Removed
     MSP_SET_GPS_RESCUE:             225,
-
     MSP_SET_VTXTABLE_BAND:          227,
     MSP_SET_VTXTABLE_POWERLEVEL:    228,
-
     MSP_MULTIPLE_MSP:               230,
-
     MSP_MODE_RANGES_EXTRA:          238,
     MSP_SET_ACC_TRIM:               239,
     MSP_ACC_TRIM:                   240,
@@ -174,14 +164,9 @@ Issue the MSP_API_VERSION command to find out if the firmware supports them.
     MSP_RTC:                        247, // Not used
     MSP_SET_BOARD_INFO:             248, // Not used
     MSP_SET_SIGNATURE:              249, // Not used
-
     MSP_EEPROM_WRITE:               250,
     MSP_DEBUGMSG:                   253, // Not used
     MSP_DEBUG:                      254,
-
-    // MSPv2 Common
     MSP2_COMMON_SERIAL_CONFIG:      0x1009,
     MSP2_COMMON_SET_SERIAL_CONFIG:  0x100A,
-
-    // MSPv2 Betaflight specific
     MSP2_BETAFLIGHT_BIND:           0x3000,

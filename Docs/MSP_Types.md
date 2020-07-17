@@ -16,7 +16,7 @@ Issue the MSP_API_VERSION command to find out if the firmware supports them.
 | TargetNameLength | Uint8 | 1.37 | Length of the Target Name |
 | TargetName | String | 1.37 | |
 | NameLength | Uint8 | 1.37 | Length of the Name |
-| Name | String | 1.39 | |
+| Name | String | 1.37 | |
 | ManufacturerIDLength | Uint8 | 1.37 | Length of the ManufacturerID |
 | ManufacturerID | String | 1.39 | |
 | Signature | String | 1.39 | 32 Bytes Long|
@@ -27,8 +27,20 @@ Issue the MSP_API_VERSION command to find out if the firmware supports them.
 
 | Data | Type | Notes |
 |------|------|-------|
+| Date | String(11) | 1.x | |
+| Time | String(8) | 1.x | |
+| CommitHash | String(7) | Unknown | |
 
 ## BatteryConfig
 
 | Data | Type | Notes |
 |------|------|-------|
+| VBatMinCellVoltage | Uint8 | 1.x | 0.1 Accuracy |
+| VBatMaxCellVoltage | Uint8 | 1.x | 0.1 Accuracy |
+| VBatWarningCellVoltage | Uint8 | 1.x | 0.1 Accuracy |
+| Capacity | Uint16 | 1.x | |
+| VoltageMeterSource | Uint8 | 1.x | |
+| CurrentMeterSource | Uint8 | 1.x | |
+| VBatMinCellVoltage | Uint16 | 1.41 | 0.01 Accuracy |
+| VBatMaxCellVoltage | Uint16 | 1.41 | 0.01 Accuracy |
+| VBatWarningCellVoltage | Uint16 | 1.41 | 0.01 Accuracy |
