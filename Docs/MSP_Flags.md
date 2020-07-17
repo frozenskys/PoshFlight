@@ -53,3 +53,9 @@
 | ARMING_DISABLED_ACC_CALIBRATION | 23 | 8388608 | |
 | ARMING_DISABLED_MOTOR_PROTOCOL | 24 | 16777216 | |
 | ARMING_DISABLED_ARM_SWITCH | 25 | 33554432 | Needs to be the last element, since it's always activated if one of the others is active when arming |
+
+## StatusEx Config State
+
+| Capability | Flag | Value | Notes |
+|------|------|------|-------|
+| RebootRequired | 0 | 1 | |

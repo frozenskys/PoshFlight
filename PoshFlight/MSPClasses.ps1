@@ -34,7 +34,7 @@ class MSPStatusEx
     [ValidateNotNullOrEmpty()][int]$RateProfile
     [ValidateNotNullOrEmpty()][int]$ArmingDisableCount
     [ValidateNotNullOrEmpty()][ArmingDisabledFlags]$ArmingDisableFlags
-    [ValidateNotNullOrEmpty()][bool]$ArmingDisabled
+    [ValidateNotNullOrEmpty()][StatusExConfigState]$ConfigFlags
 }
 
 class FlightControllerConfig

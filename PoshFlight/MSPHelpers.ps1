@@ -4,6 +4,8 @@ function DecodeBoardInfo{
         [byte[]]$databytes
     )
     Write-Verbose "API Version: $Global:MSPAPIVersion"
+    $ns = [System.BitConverter]::ToString($databytes[8..($databytes.Length -2)])
+    write-verbose "Decoding: $ns"
     $Identifier = [string]([System.Text.Encoding]::ASCII.GetString($databytes[8..11]))
     Write-Verbose "Board Identifier: $Identifier"
     $version = [System.BitConverter]::ToUInt16($databytes,12)
@@ -78,8 +80,9 @@ function DecodeStatusEx{
     Param(
         [byte[]]$databytes
     )
-
     Write-Verbose "API Version: $Global:MSPAPIVersion"
+    $ns = [System.BitConverter]::ToString($databytes[8..($databytes.Length -2)])
+    write-verbose "Decoding: $ns"
     $cycletime = [System.BitConverter]::ToUInt16($databytes,8)
     $i2cError = [System.BitConverter]::ToUInt16($databytes,10)
     $activeSensors = [SensorsFlag]([System.BitConverter]::ToUInt16($databytes,12))
@@ -95,7 +98,7 @@ function DecodeStatusEx{
             $disableFlags = [ArmingDisabledFlags]([System.BitConverter]::ToUInt32($databytes, 25 + $count))
         }
     }
-    if($disableCount -gt 0){$disabled = $True}
+    $config = [StatusExConfigState]($databytes[25 + $count +1])
     $status = [MSPStatusEx]@{
         CycleTime = $cycletime
         I2cError = $i2cError
@@ -107,7 +110,7 @@ function DecodeStatusEx{
         RateProfile = $rateprofile
         ArmingDisableCount = $disableCount
         ArmingDisableFlags = $disableFlags
-        ArmingDisabled = $disabled
+        ConfigFlags = $config
     }
     return $status
 }
@@ -117,6 +120,7 @@ function DecodeBatteryConfig {
     Param(
         [byte[]]$databytes
     )
+    Write-Verbose "API Version: $Global:MSPAPIVersion"
     $ns = [System.BitConverter]::ToString($databytes[8..($databytes.Length -2)])
     write-verbose "Decoding: $ns"
     $VBatMinCellVoltage = [int]($databytes[8]) / 10

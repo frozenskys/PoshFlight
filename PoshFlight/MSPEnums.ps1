@@ -76,3 +76,8 @@ Enum ArmingDisabledFlags {
     ARMING_DISABLED_MOTOR_PROTOCOL = 16777216
     ARMING_DISABLED_ARM_SWITCH = 33554432
 }
+
+[flags()]
+Enum StatusExConfigState {
+    ReebotRequired = 1
+}
