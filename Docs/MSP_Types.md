@@ -1,0 +1,34 @@
+# MSP Types
+
+Cleanflight includes a number of extensions to the MultiWii Serial Protocol (MSP). This document describes 
+those extensions in order that 3rd party tools may identify cleanflight firmware and react appropriately.
+
+Issue the MSP_API_VERSION command to find out if the firmware supports them.
+
+## BoardInfo
+
+| Data | Type | API Version | Notes |
+|------|------|------|-------|
+| Identifier | String(4) | 1.x | |
+| Version | UInt16 | 1.x | |
+| Type | Uint8 | 1.35 | |
+| Capabilities | Uint8 | 1.37 | Flags? |
+| TargetNameLength | Uint8 | 1.37 | Length of the Target Name |
+| TargetName | String | 1.37 | |
+| NameLength | Uint8 | 1.37 | Length of the Name |
+| Name | String | 1.39 | |
+| ManufacturerIDLength | Uint8 | 1.37 | Length of the ManufacturerID |
+| ManufacturerID | String | 1.39 | |
+| Signature | String | 1.39 | 32 Bytes Long|
+| MCUType | Uint8 | 1.41 | Enum |
+| ConfigurationState| UInt8 | 1.42 | Flags? |
+
+## BuildInfo
+
+| Data | Type | Notes |
+|------|------|-------|
+
+## BatteryConfig
+
+| Data | Type | Notes |
+|------|------|-------|
