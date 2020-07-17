@@ -92,7 +92,7 @@ function DecodeStatusEx{
         if($Global:MSPAPIVersion -ge [version]::new(1,36,0)){
             $count = [int]($databytes[23])
             $disableCount  = [int]($databytes[24 + $count])
-            $disableFlags = [System.BitConverter]::ToUInt32($databytes, 25 + $count)
+            $disableFlags = [ArmingDisabledFlags]([System.BitConverter]::ToUInt32($databytes, 25 + $count))
         }
     }
     if($disableCount -gt 0){$disabled = $True}

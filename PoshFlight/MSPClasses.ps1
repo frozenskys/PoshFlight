@@ -33,7 +33,7 @@ class MSPStatusEx
     [ValidateNotNullOrEmpty()][int]$ProfileCount
     [ValidateNotNullOrEmpty()][int]$RateProfile
     [ValidateNotNullOrEmpty()][int]$ArmingDisableCount
-    [ValidateNotNullOrEmpty()][int]$ArmingDisableFlags
+    [ValidateNotNullOrEmpty()][ArmingDisabledFlags]$ArmingDisableFlags
     [ValidateNotNullOrEmpty()][bool]$ArmingDisabled
 }
 
