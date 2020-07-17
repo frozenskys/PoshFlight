@@ -82,7 +82,7 @@ function DecodeStatusEx{
     Write-Verbose "API Version: $Global:MSPAPIVersion"
     $cycletime = [System.BitConverter]::ToUInt16($databytes,8)
     $i2cError = [System.BitConverter]::ToUInt16($databytes,10)
-    $activeSensors = [System.BitConverter]::ToUInt16($databytes,12)
+    $activeSensors = [SensorsFlag]([System.BitConverter]::ToUInt16($databytes,12))
     $mode = [System.BitConverter]::ToUInt32($databytes,14)
     $fcprofile = [int]($databytes[18])
     $cpuload =  [System.BitConverter]::ToUInt16($databytes,19)

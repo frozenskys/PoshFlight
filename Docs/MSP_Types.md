@@ -11,7 +11,7 @@ Issue the MSP_API_VERSION command to find out if the firmware supports them.
 |------|------|------|-------|
 | Identifier | String(4) | 1.x | |
 | Version | UInt16 | 1.x | |
-| Type | Uint8 | 1.35 | |
+| Type | Uint8 | 1.35 | Board Type Enum |
 | Capabilities | Uint8 | 1.37 | Board Capabilities Flag |
 | TargetNameLength | Uint8 | 1.37 | Length of the Target Name |
 | TargetName | String | 1.37 | |

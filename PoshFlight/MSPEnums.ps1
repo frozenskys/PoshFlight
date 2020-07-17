@@ -35,3 +35,14 @@ Enum CapabilitiesFlag {
     HAS_CUSTOM_DEFAULTS= 32
     SUPPORTS_RX_BIND= 64
 }
+
+
+[flags()]
+Enum SensorsFlag {
+    SENSOR_ACC= 1
+    SENSOR_BARO= 2
+    SENSOR_MAG= 4
+    SENSOR_GPS= 8
+    SENSOR_RANGEFINDER= 16
+    SENSOR_GYRO= 32
+}

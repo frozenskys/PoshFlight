@@ -26,7 +26,7 @@ class MSPStatusEx
 {
     [ValidateNotNullOrEmpty()][int]$CycleTime
     [ValidateNotNullOrEmpty()][int]$I2cError
-    [ValidateNotNullOrEmpty()][int]$ActiveSensors
+    [ValidateNotNullOrEmpty()][SensorsFlag]$ActiveSensors
     [ValidateNotNullOrEmpty()][int]$Mode
     [ValidateNotNullOrEmpty()][int]$Profile
     [ValidateNotNullOrEmpty()][string]$CpuLoad
