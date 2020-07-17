@@ -110,6 +110,8 @@ function DecodeBatteryConfig {
     Param(
         [byte[]]$databytes
     )
+    $ns = [System.BitConverter]::ToString($databytes[8..($databytes.Length -2)])
+    write-verbose "Decoding: $ns"
     $VBatMinCellVoltage = [int]($databytes[8]) / 10
     $VBatMaxCellVoltage = [int]($databytes[9]) / 10
     $VBatWarningCellVoltage = [int]($databytes[10]) / 10
@@ -130,4 +132,25 @@ function DecodeBatteryConfig {
         CurrentMeterSource = $CurrentMeterSource
     }
     return $config
+}
+
+function EncodeBatteryConfig {
+    [cmdletbinding()]
+    Param(
+        [BatteryConfig]$config
+    )
+    [byte[]]$data = [byte]$([int]([decimal]$config.VBatMinCellVoltage * 10))
+    $data += ([byte]$([int]([decimal]$config.VBatMaxCellVoltage * 10)))
+    $data += ([byte]$([int]([decimal]$config.VBatWarningCellVoltage * 10)))
+    $data += [System.BitConverter]::GetBytes($([int16]([decimal]$config.Capacity)))
+    $data += ([byte]$([int]([decimal]$config.VoltageMeterSource)))
+    $data += ([byte]$([int]([decimal]$config.CurrentMeterSource)))
+    if($Global:MSPAPIVersion -ge [version]::new(1,41,0)){
+        $data += [System.BitConverter]::GetBytes($([int16]([decimal]$config.VBatMinCellVoltage * 100)))
+        $data += [System.BitConverter]::GetBytes($([int16]([decimal]$config.VBatMaxCellVoltage * 100)))
+        $data += [System.BitConverter]::GetBytes($([int16]([decimal]$config.VBatWarningCellVoltage * 100)))
+    }
+    $ns = [System.BitConverter]::ToString($data)
+    write-verbose "Encoded: $ns"
+    return $data
 }
