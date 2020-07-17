@@ -14,10 +14,12 @@ Issue the MSP_API_VERSION command to find out if the firmware supports them.
 | MSP_FC_VERSION | 3 | None | Gets the version of the xFlight Software |
 | MSP_BOARD_INFO | 4 | BoardInfo | Gets information about the Flight Controller |
 | MSP_BUILD_INFO | 5 | BuildInfo | Gets information about the xFlight software build |
-| MSP_NAME | 10 | None | Gets the Craft Name |
-| MSP_SET_NAME | 11 | None | Sets the Craft Name |
+| MSP_NAME | 10 | None | Gets the Craft Name (User set board name) |
+| MSP_SET_NAME | 11 | None | Sets the Craft Name (User set board name) |
 | MSP_BATTERY_CONFIG | 32 | BatteryConfig | Gets the battery info |
 | MSP_SET_BATTERY_CONFIG | 33 | BatteryConfig | Sets the battery info |
+|   |   |   |   |
+| MSP_STATUS_EX | 150 | StatusEx | Gets the FC Status - cycletime, errors_count, CPU load, sensor present etc. |
 
 ## Currently UnImplemented in PoshFlight
 
@@ -116,12 +118,11 @@ Issue the MSP_API_VERSION command to find out if the firmware supports them.
     MSP_BATTERY_STATE:              130,
     MSP_MOTOR_CONFIG:               131,
     MSP_GPS_CONFIG:                 132,
-:   MSP_COMPASS_CONFIG:             133, // Removed
+    MSP_COMPASS_CONFIG:             133, // Removed
     MSP_GPS_RESCUE:                 135,
     MSP_VTXTABLE_BAND:              137,
     MSP_VTXTABLE_POWERLEVEL:        138,
     MSP_MOTOR_TELEMETRY:            139,
-    MSP_STATUS_EX:                  150,
     MSP_UID:                        160,
     MSP_GPS_SV_INFO:                164,
     MSP_DISPLAYPORT:                182,
