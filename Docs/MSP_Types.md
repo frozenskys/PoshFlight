@@ -12,7 +12,7 @@ Issue the MSP_API_VERSION command to find out if the firmware supports them.
 | Identifier | String(4) | 1.x | |
 | Version | UInt16 | 1.x | |
 | Type | Uint8 | 1.35 | |
-| Capabilities | Uint8 | 1.37 | Flags? |
+| Capabilities | Uint8 | 1.37 | Board Capabilities Flag |
 | TargetNameLength | Uint8 | 1.37 | Length of the Target Name |
 | TargetName | String | 1.37 | |
 | NameLength | Uint8 | 1.37 | Length of the Name |
@@ -20,8 +20,8 @@ Issue the MSP_API_VERSION command to find out if the firmware supports them.
 | ManufacturerIDLength | Uint8 | 1.37 | Length of the ManufacturerID |
 | ManufacturerID | String | 1.39 | |
 | Signature | String | 1.39 | 32 Bytes Long|
-| MCUType | Uint8 | 1.41 | Enum |
-| ConfigurationState| UInt8 | 1.42 | Flags? |
+| MCUType | Uint8 | 1.41 | MCU Type Enum |
+| ConfigurationState | UInt8 | 1.42 | Configuration State Enum |
 
 ## BuildInfo
 

@@ -9,13 +9,13 @@ function DecodeBoardInfo{
     $version = [System.BitConverter]::ToUInt16($databytes,12)
     Write-Verbose "Board Version: $version"
     if($Global:MSPAPIVersion -ge [version]::new(1,35,0)){
-        $boardtype = [int]($databytes[14])
+        $boardtype = [BoardType]($databytes[14])
     }else{
         $boardtype = 0
     }
     Write-Verbose "Board Type: $boardtype"
     if($Global:MSPAPIVersion -ge [version]::new(1,37,0)){
-        $capabilities = [int]($databytes[15])
+        $capabilities = [CapabilitiesFlag]($databytes[15])
         [int]$tnameend = 16 + [int]($databytes[16])
         $targetname = [string]([System.Text.Encoding]::ASCII.GetString($databytes[17..$tnameend]))
     }else{

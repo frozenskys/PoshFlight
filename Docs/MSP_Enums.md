@@ -15,3 +15,19 @@
 | F746 | 8 | |
 | F765 | 9 | |
 | Unknown | 255 | |
+
+## Configuration State
+
+| Name | Value | Notes |
+|-------|------|-------|
+| Defaults_Bare | 0 | |
+| Defaults_Custom | 1 | |
+| Configured | 2 | |
+| Unknown | 255 | |
+
+## Board Type
+
+| Name | Value | Notes |
+|-------|------|-------|
+| NO_OSD | 0 | FC |
+| MAX7456 | 2 | FC with MAX7456 |

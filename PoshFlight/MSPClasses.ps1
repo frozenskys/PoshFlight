@@ -11,8 +11,8 @@ class MSPBoardInfo
     # Optionally, add attributes to prevent invalid values
     [ValidateNotNullOrEmpty()][string]$Identifier
     [ValidateNotNullOrEmpty()][string]$Version
-    [ValidateNotNullOrEmpty()][string]$Type
-    [ValidateNotNullOrEmpty()][byte]$Capabilities
+    [ValidateNotNullOrEmpty()][BoardType]$Type
+    [ValidateNotNullOrEmpty()][CapabilitiesFlag]$Capabilities
     [ValidateNotNullOrEmpty()][string]$TargetName
     [ValidateNotNullOrEmpty()][string]$Name
     [ValidateNotNullOrEmpty()][string]$ManufacturerID

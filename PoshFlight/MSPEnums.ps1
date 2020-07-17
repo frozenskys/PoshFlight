@@ -20,12 +20,18 @@ Enum ConfigurationState {
     Unknown = 255
 }
 
+Enum BoardType {
+    NO_OSD = 0
+    MAX7456 = 2
+}
+
+[flags()]
 Enum CapabilitiesFlag {
-    HAS_VCP= 0
-    HAS_SOFTSERIAL= 1
-    IS_UNIFIED= 2
-    HAS_FLASH_BOOTLOADER= 3
-    SUPPORTS_CUSTOM_DEFAULTS= 4
-    HAS_CUSTOM_DEFAULTS= 5
-    SUPPORTS_RX_BIND= 6
+    HAS_VCP= 1
+    HAS_SOFTSERIAL= 2
+    IS_UNIFIED= 4
+    HAS_FLASH_BOOTLOADER= 8
+    SUPPORTS_CUSTOM_DEFAULTS= 16
+    HAS_CUSTOM_DEFAULTS= 32
+    SUPPORTS_RX_BIND= 64
 }
