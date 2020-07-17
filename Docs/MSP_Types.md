@@ -25,16 +25,16 @@ Issue the MSP_API_VERSION command to find out if the firmware supports them.
 
 ## BuildInfo
 
-| Data | Type | Notes |
-|------|------|-------|
+| Data | Type | API Version | Notes |
+|------|------|------|-------|
 | Date | String(11) | 1.x | |
 | Time | String(8) | 1.x | |
 | CommitHash | String(7) | Unknown | |
 
 ## BatteryConfig
 
-| Data | Type | Notes |
-|------|------|-------|
+| Data | Type | API Version | Notes |
+|------|------|------|-------|
 | VBatMinCellVoltage | Uint8 | 1.x | 0.1 Accuracy |
 | VBatMaxCellVoltage | Uint8 | 1.x | 0.1 Accuracy |
 | VBatWarningCellVoltage | Uint8 | 1.x | 0.1 Accuracy |
