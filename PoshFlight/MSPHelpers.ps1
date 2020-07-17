@@ -22,7 +22,7 @@ function DecodeBoardInfo{
         $capabilities = 0
         $targetname = ''
     }
-    Write-Verbose "Board Capabilitiess: $capabilities"
+    Write-Verbose "Board Capabilities: $capabilities"
     Write-Verbose "Target Name: $targetname"
     if($Global:MSPAPIVersion -ge [version]::new(1,39,0)){
         [int]$bnameend = $tnameend + [int]($databytes[$tnameend+1]) + 1
