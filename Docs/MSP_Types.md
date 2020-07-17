@@ -52,11 +52,11 @@ Issue the MSP_API_VERSION command to find out if the firmware supports them.
 | CycleTime | Uint8 | 1.x | CPU Cycle time |
 | I2cError | Uint8 | 1.x | i2c Error count |
 | ActiveSensors | Uint8 | 1.x | Sensors Flag |
-| Mode | Uint8 | 1.x | ?? |
+| Mode | Uint8 | 1.x | Needs More Investigation as unclear from FC code |
 | Profile | Uint8 | 1.x | Current PID Profile Index |
 | CpuLoad | Uint8 | 1.x | Percentage CPU Load |
 | ProfileCount | Uint16 | 1.41 | Count of PID Profiles |
 | RateProfile | Uint16 | 1.41 | Current Rate Profile Index |
 | ArmingDisableCount | Uint16 | 1.41 | Number of Possible Arming Disable Flags |
 | ArmingDisableFlags | Uint32 | 1.x | Arming Disabled Flag |
-| ArmingDisabled | Uint8 | 1.x | ?? |
+| ArmingDisabled | Uint8 | 1.x | Maybe Reboot Required ? |
