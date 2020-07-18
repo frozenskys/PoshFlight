@@ -198,5 +198,5 @@ function Get-RXConfig{
     $response = send_message_and_get_response -message $v2request -port $Global:ComPort -Verbose:$VerbosePreference
     $ns = [string]([System.Text.Encoding]::ASCII.GetString($response))
     Write-Verbose "Recived: $ns"
-    #Return DecodeBatteryConfig -databytes $response -Verbose:$VerbosePreference
+    Return DecodeRXConfig -databytes $response -Verbose:$VerbosePreference
 }

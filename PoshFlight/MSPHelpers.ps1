@@ -211,3 +211,81 @@ function DecodeModeRangesExtra {
     }
     return $moderanges
 }
+
+
+function DecodeRXConfig {
+    [cmdletbinding()]
+    Param(
+        [byte[]]$databytes,
+        [ModeRange[]]$moderanges
+    )
+    Write-Verbose "API Version: $Global:MSPAPIVersion"
+    $data = $databytes[8..($databytes.Length -2)]
+    $ns = [System.BitConverter]::ToString($data)
+    write-verbose "Decoding: $ns"
+    $rxprovider = [int]($data[0])
+    $stickmax = [System.BitConverter]::ToUInt16($data,1)
+    $stickcenter = [System.BitConverter]::ToUInt16($data,3)
+    $stickmin = [System.BitConverter]::ToUInt16($data,5)
+    $spektrum_sat_bind = [int]($data[6])
+    $rx_min_usec = [System.BitConverter]::ToUInt16($data,7)
+    $rx_max_usec = [System.BitConverter]::ToUInt16($data,9)
+    if($Global:MSPAPIVersion -ge [version]::new(1,20,0)) {
+        $rcInterpolation = [int]($data[11])
+        $rcInterpolationInterval = [int]($data[12])
+        $airModeActivateThreshold = [System.BitConverter]::ToUInt16($data,13)
+        if($Global:MSPAPIVersion -ge [version]::new(1,31,0)){
+            $rxSpiProtocol = [int]($data[15])
+            $rxSpiId = [System.BitConverter]::ToUInt32($data,16)
+            $rxSpiRfChannelCount = [int]($data[20])
+            $fpvCamAngleDegrees = [int]($data[21])
+            if($Global:MSPAPIVersion -ge [version]::new(1,40,0)) {
+                $rcInterpolationChannels = [int]($data[22])
+                $rcSmoothingType = [int]($data[23]);
+                $rcSmoothingInputCutoff = [int]($data[24])
+                $rcSmoothingDerivativeCutoff = [int]($data[25])
+                $rcSmoothingInputType = [int]($data[26])
+                $rcSmoothingDerivativeType = [int]($data[27])
+                if($Global:MSPAPIVersion -ge [version]::new(1,42,0)) {
+                    $usbCdcHidType = [int]($data[28])
+                    $rcSmoothingAutoSmoothness = [int]($data[29])
+                }
+            }
+        } else {
+            $rxSpiProtocol = 0;
+            $rxSpiId = 0;
+            $rxSpiRfChannelCount = 0;
+            $fpvCamAngleDegrees = 0;
+        }
+    } else {
+        $rcInterpolation = 0;
+        $rcInterpolationInterval = 0;
+        $airModeActivateThreshold = 0;
+    }
+
+    $config = [RXConfig]@{
+        serialrx_provider = $rxprovider
+        stick_max = $stickmax
+        stick_center = $stickcenter
+        stick_min = $stickmin
+        spektrum_sat_bind = $spektrum_sat_bind
+        rx_min_usec = $rx_min_usec
+        rx_max_usec = $rx_max_usec
+        rcInterpolation = $rcInterpolation
+        rcInterpolationInterval = $rcInterpolationInterval
+        airModeActivateThreshold = $airModeActivateThreshold
+        rxSpiProtocol = $rxSpiProtocol
+        rxSpiId = $rxSpiId
+        rxSpiRfChannelCount = $rxSpiRfChannelCount
+        fpvCamAngleDegrees = $fpvCamAngleDegrees
+        rcInterpolationChannels = $rcInterpolationChannels
+        rcSmoothingType = $rcSmoothingType
+        rcSmoothingInputCutoff = $rcSmoothingInputCutoff
+        rcSmoothingDerivativeCutoff = $rcSmoothingDerivativeCutoff
+        rcSmoothingInputType = $rcSmoothingInputType
+        rcSmoothingDerivativeType = $rcSmoothingDerivativeType
+        usbCdcHidType = $usbCdcHidType
+        rcSmoothingAutoSmoothness = $rcSmoothingAutoSmoothness
+    }
+    return $config
+}

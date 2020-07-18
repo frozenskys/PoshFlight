@@ -92,5 +92,30 @@ class ModeRange
     [ValidateNotNullOrEmpty()][string]$linkedTo
     [ValidateNotNullOrEmpty()][string]$RangeStart
     [ValidateNotNullOrEmpty()][string]$RangeEnd
+}
 
+class RXConfig
+{
+    [ValidateNotNullOrEmpty()][string]$serialrx_provider
+    [ValidateNotNullOrEmpty()][string]$stick_max
+    [ValidateNotNullOrEmpty()][string]$stick_center
+    [ValidateNotNullOrEmpty()][string]$stick_min
+    [ValidateNotNullOrEmpty()][string]$spektrum_sat_bind
+    [ValidateNotNullOrEmpty()][string]$rx_min_usec
+    [ValidateNotNullOrEmpty()][string]$rx_max_usec
+    [ValidateNotNullOrEmpty()][string]$rcInterpolation
+    [ValidateNotNullOrEmpty()][string]$rcInterpolationInterval
+    [ValidateNotNullOrEmpty()][string]$airModeActivateThreshold
+    [ValidateNotNullOrEmpty()][string]$rxSpiProtocol
+    [ValidateNotNullOrEmpty()][string]$rxSpiId
+    [ValidateNotNullOrEmpty()][string]$rxSpiRfChannelCount
+    [ValidateNotNullOrEmpty()][string]$fpvCamAngleDegrees
+    [ValidateNotNullOrEmpty()][string]$rcInterpolationChannels
+    [ValidateNotNullOrEmpty()][string]$rcSmoothingType
+    [ValidateNotNullOrEmpty()][string]$rcSmoothingInputCutoff
+    [ValidateNotNullOrEmpty()][string]$rcSmoothingDerivativeCutoff
+    [ValidateNotNullOrEmpty()][string]$rcSmoothingInputType
+    [ValidateNotNullOrEmpty()][string]$rcSmoothingDerivativeType
+    [ValidateNotNullOrEmpty()][string]$usbCdcHidType
+    [ValidateNotNullOrEmpty()][string]$rcSmoothingAutoSmoothness
 }
