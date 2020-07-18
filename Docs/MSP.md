@@ -17,12 +17,17 @@ The MSP_API_VERSION command can be used to find the API version of the device yo
 |   |   |   |   |
 | MSP_BATTERY_CONFIG | 32 | BatteryConfig | Gets the battery info |
 | MSP_SET_BATTERY_CONFIG | 33 | BatteryConfig | Sets the battery info |
+| MSP_MODE_RANGES | 34 | | |
+|   |   |   |   |
+| MSP_RX_CONFIG 44 | | |
 |   |   |   |   |
 | MSP_STATUS_EX | 150 | StatusEx | Gets the FC Status - cycletime, errors_count, CPU load, sensor present etc. |
+|   |   |   |   |
+| MSP_MODE_RANGES_EXTRA | 238 | | Implemented as part of Get-ModeRanges in PoshFlight |
+|   |   |   |   |
 
 ## Currently UnImplemented in PoshFlight
 
-    MSP_MODE_RANGES:                34,
     MSP_SET_MODE_RANGE:             35,
     MSP_FEATURE_CONFIG:             36,
     MSP_SET_FEATURE_CONFIG:         37,
@@ -32,7 +37,6 @@ The MSP_API_VERSION command can be used to find the API version of the device yo
     MSP_SET_CURRENT_METER_CONFIG:   41,
     MSP_MIXER_CONFIG:               42,
     MSP_SET_MIXER_CONFIG:           43,
-    MSP_RX_CONFIG:                  44,
     MSP_SET_RX_CONFIG:              45,
     MSP_LED_COLORS:                 46,
     MSP_SET_LED_COLORS:             47,
@@ -143,7 +147,6 @@ The MSP_API_VERSION command can be used to find the API version of the device yo
     MSP_SET_VTXTABLE_BAND:          227,
     MSP_SET_VTXTABLE_POWERLEVEL:    228,
     MSP_MULTIPLE_MSP:               230,
-    MSP_MODE_RANGES_EXTRA:          238,
     MSP_SET_ACC_TRIM:               239,
     MSP_ACC_TRIM:                   240,
     MSP_SERVO_MIX_RULES:            241,
