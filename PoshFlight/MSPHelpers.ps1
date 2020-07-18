@@ -165,3 +165,49 @@ function EncodeBatteryConfig {
     write-verbose "Encoded: $ns"
     return $data
 }
+
+function DecodeModeRanges {
+    [cmdletbinding()]
+    Param(
+        [byte[]]$databytes
+    )
+    Write-Verbose "API Version: $Global:MSPAPIVersion"
+    $data = $databytes[8..($databytes.Length -2)]
+    $ns = [System.BitConverter]::ToString($data)
+    write-verbose "Decoding: $ns"
+    $modecount = $data.Length /4
+    write-verbose "Found $modecount Mode Ranges"
+    $pos = 0
+    for ($i = 0; $i -lt $modecount; $i++) {
+        $range = [ModeRange]@{
+            Id = $data[$pos]
+            AuxChannelIndex = $data[$pos + 1]
+            RangeStart = $data[$pos +2 ]
+            RangeEnd = $data[$pos + 3]
+        }
+        $ranges += @($range)
+        $pos += 4
+    }
+    return $ranges
+}
+
+function DecodeModeRangesExtra {
+    [cmdletbinding()]
+    Param(
+        [byte[]]$databytes,
+        [ModeRange[]]$moderanges
+    )
+    Write-Verbose "API Version: $Global:MSPAPIVersion"
+    $data = $databytes[8..($databytes.Length -2)]
+    $ns = [System.BitConverter]::ToString($data)
+    write-verbose "Decoding: $ns"
+    $modecount = $data[0]
+    write-verbose "Found $modecount Mode Extra Ranges"
+    $pos = 0
+    for ($i = 0; $i -lt $modecount; $i++) {
+        $moderanges[$i].modeLogic = $data[$pos+1]
+        $moderanges[$i].linkedTo = $data[$pos+2]
+        $pos += 3
+    }
+    return $moderanges
+}

@@ -62,3 +62,11 @@ Issue the MSP_API_VERSION command to find out if the firmware supports them.
 | ArmingDisableCount | Uint8 | 1.36 | Number of Possible Arming Disable Flags |
 | ArmingDisableFlags | Uint32 | 1.36 | Arming Disabled Flag |
 | ConfigFlags | Uint8 | ?? | Maybe Reboot Required |
+
+## ModeRanges
+| Data | Type | API Version | Notes |
+|------|------|------|-------|
+| Id | Uint8 | 1.x | |
+| AuxChannelIndex | Uint8 | 1.x | |
+| RangeStart | Uint8 | 1.x | |
+| RangeEnd | Uint8 | 1.x | |

@@ -83,3 +83,14 @@ class BatteryConfig
     [ValidateNotNullOrEmpty()][string]$VoltageMeterSource
     [ValidateNotNullOrEmpty()][string]$CurrentMeterSource
 }
+
+class ModeRange
+{
+    [ValidateNotNullOrEmpty()][string]$Id
+    [ValidateNotNullOrEmpty()][string]$AuxChannelIndex
+    [ValidateNotNullOrEmpty()][string]$ModeLogic
+    [ValidateNotNullOrEmpty()][string]$linkedTo
+    [ValidateNotNullOrEmpty()][string]$RangeStart
+    [ValidateNotNullOrEmpty()][string]$RangeEnd
+
+}

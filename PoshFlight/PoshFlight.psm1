@@ -177,7 +177,7 @@ function Get-ModeRanges{
     $response = send_message_and_get_response -message $v2request -port $Global:ComPort -Verbose:$VerbosePreference
     $ns = [string]([System.Text.Encoding]::ASCII.GetString($response))
     Write-Verbose "Recived: $ns"
-    #Return DecodeBatteryConfig -databytes $response -Verbose:$VerbosePreference
+    $modes = DecodeModeRanges -databytes $response -Verbose:$VerbosePreference
 
     [byte[]]$v2request = get_v2_message -function MSP_MODE_RANGES_EXTRA -Verbose:$VerbosePreference
     $ns = [string]([System.Text.Encoding]::ASCII.GetString($v2request))
@@ -185,7 +185,7 @@ function Get-ModeRanges{
     $response = send_message_and_get_response -message $v2request -port $Global:ComPort -Verbose:$VerbosePreference
     $ns = [string]([System.Text.Encoding]::ASCII.GetString($response))
     Write-Verbose "Recived: $ns"
-    #Return DecodeBatteryConfig -databytes $response -Verbose:$VerbosePreference
+    Return DecodeModeRangesExtra -databytes $response -moderanges $modes -Verbose:$VerbosePreference
 }
 
 function Get-RXConfig{
