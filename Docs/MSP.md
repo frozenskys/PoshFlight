@@ -22,9 +22,13 @@ The MSP_API_VERSION command can be used to find the API version of the device yo
 |   |   |   |   |
 | MSP_RX_CONFIG 44 | RXConfig | |
 |   |   |   |   |
+| MSP_BOXNAMES | 116 | Box | Gets a list of all Aux Switch Names (BOXes) implemented as part of GetBoxes |
+|   |   |   |   |
+| MSP_BOXIDS | 119 | Box | Get the permanent IDs associated to BOXes implemented as part of GetBoxes |
+|   |   |   |   |
 | MSP_STATUS_EX | 150 | StatusEx | Gets the FC Status - cycletime, errors_count, CPU load, sensor present etc. |
 |   |   |   |   |
-| MSP_MODE_RANGES_EXTRA | 238 | | Implemented as part of Get-ModeRanges in PoshFlight |
+| MSP_MODE_RANGES_EXTRA | 238 | ModeRange[] | Implemented as part of Get-ModeRanges in PoshFlight |
 |   |   |   |   |
 
 ## Currently UnImplemented in PoshFlight
@@ -98,10 +102,8 @@ The MSP_API_VERSION command can be used to find the API version of the device yo
     MSP_ANALOG:                     110,
     MSP_RC_TUNING:                  111,
     MSP_PID:                        112,
-    MSP_BOXNAMES:                   116,
     MSP_PIDNAMES:                   117,
     MSP_WP:                         118, 
-    MSP_BOXIDS:                     119,
     MSP_SERVO_CONFIGURATIONS:       120,
     MSP_MOTOR_3D_CONFIG:            124,
     MSP_RC_DEADBAND:                125,

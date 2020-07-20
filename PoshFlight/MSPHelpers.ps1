@@ -169,7 +169,8 @@ function EncodeBatteryConfig {
 function DecodeModeRanges {
     [cmdletbinding()]
     Param(
-        [byte[]]$databytes
+        [byte[]]$databytes,
+        [Box[]]$boxes
     )
     Write-Verbose "API Version: $Global:MSPAPIVersion"
     $data = $databytes[8..($databytes.Length -2)]
@@ -179,12 +180,15 @@ function DecodeModeRanges {
     write-verbose "Found $modecount Mode Ranges"
     $pos = 0
     for ($i = 0; $i -lt $modecount; $i++) {
+        $boxid = $data[$pos]
+        $box = $boxes | where BoxId -eq $boxid
         $range = [ModeRange]@{
             Index = $i
-            BoxId = $data[$pos]
+            BoxId = $boxid
+            BoxName = $box.Name
             AuxChannelIndex = $data[$pos + 1]
-            RangeStart = $data[$pos +2 ]
-            RangeEnd = $data[$pos + 3]
+            RangeStart = ($data[$pos +2 ] * 25) + 900
+            RangeEnd = ($data[$pos + 3] * 25) + 900
         }
         $ranges += @($range)
         $pos += 4
@@ -200,8 +204,8 @@ function EncodeModeRange {
     [byte[]]$data = [byte]$([int]($moderange.Index))
     $data += [byte]$([int]($moderange.BoxId))
     $data += [byte]$([int]($moderange.AuxChannelIndex))
-    $data += [byte]$([int]($moderange.RangeStart))
-    $data += [byte]$([int]($moderange.RangeEnd))
+    $data += [byte]$([int](($moderange.RangeStart) - 900) / 25)
+    $data += [byte]$([int](($moderange.RangeEnd) - 900) / 25)
     if($Global:MSPAPIVersion -ge [version]::new(1,41,0)){
         $data += [byte]$([int]($moderange.ModeLogic))
         $data += [byte]$([int]($moderange.linkedTo))
@@ -232,6 +236,72 @@ function DecodeModeRangesExtra {
     return $moderanges
 }
 
+function DecodeBoxNames {
+    [cmdletbinding()]
+    Param(
+        [byte[]]$databytes
+    )
+    Write-Verbose "API Version: $Global:MSPAPIVersion"
+    $data = $databytes[8..($databytes.Length -2)]
+    $ns = [System.BitConverter]::ToString($data)
+    write-verbose "Decoding: $ns"
+    $st = [System.Text.Encoding]::ASCII.GetString($data)
+    return $st.split(";")
+}
+
+function DecodeBoxNames2 {
+    [cmdletbinding()]
+    Param(
+        [byte[]]$databytes
+    )
+    Write-Verbose "API Version: $Global:MSPAPIVersion"
+    $data = $databytes[8..($databytes.Length -2)]
+    $ns = [System.BitConverter]::ToString($data)
+    write-verbose "Decoding: $ns"
+    $st = [System.Text.Encoding]::ASCII.GetString($data)
+    $boxnames = $st.split(";")
+    $boxcount = $boxnames.Length -1
+    for ($i = 0; $i -lt $boxcount; $i++) {
+        write-verbose "$($boxnames[$i])"
+        $box = [Box]@{
+            Name = $boxnames[$i]
+        }
+        $boxes += @($box)
+    }
+    return $boxes
+}
+
+function DecodeBoxIds {
+    [cmdletbinding()]
+    Param(
+        [byte[]]$databytes
+    )
+    Write-Verbose "API Version: $Global:MSPAPIVersion"
+    $data = $databytes[8..($databytes.Length -2)]
+    $ns = [System.BitConverter]::ToString($data)
+    write-verbose "Decoding: $ns"
+    [int[]]$ret
+    for ($i = 0; $i -lt $data.Length; $i++) {
+         $ret += @([int]$data[$i])
+    }
+    return $ret
+}
+
+function DecodeBoxIds2 {
+    [cmdletbinding()]
+    Param(
+        [byte[]]$databytes,
+        [Box[]]$boxes
+    )
+    Write-Verbose "API Version: $Global:MSPAPIVersion"
+    $data = $databytes[8..($databytes.Length -2)]
+    $ns = [System.BitConverter]::ToString($data)
+    write-verbose "Decoding: $ns"
+    for ($i = 0; $i -lt $data.Length; $i++) {
+         $boxes[$i].BoxId = [byte]$data[$i]
+    }
+    return $boxes
+}
 
 function DecodeRXConfig {
     [cmdletbinding()]

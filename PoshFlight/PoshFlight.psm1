@@ -177,7 +177,8 @@ function Get-ModeRanges{
     $response = send_message_and_get_response -message $v2request -port $Global:ComPort -Verbose:$VerbosePreference
     $ns = [string]([System.Text.Encoding]::ASCII.GetString($response))
     Write-Verbose "Recived: $ns"
-    $modes = DecodeModeRanges -databytes $response -Verbose:$VerbosePreference
+    $boxes = (Get-Boxes -Verbose:$VerbosePreference)
+    $modes = DecodeModeRanges -databytes $response -boxes $boxes -Verbose:$VerbosePreference
 
     [byte[]]$v2request = get_v2_message -function MSP_MODE_RANGES_EXTRA -Verbose:$VerbosePreference
     $ns = [string]([System.Text.Encoding]::ASCII.GetString($v2request))
@@ -201,6 +202,53 @@ function Set-ModeRange{
     $response = send_message_and_get_response -message $v2request -port $Global:ComPort -Verbose:$VerbosePreference
     $ns = [string]([System.Text.Encoding]::ASCII.GetString($response))
     Write-Verbose "Recived: $ns"
+}
+
+function Get-BoxNames{
+    [cmdletbinding()]
+    Param()
+    $null = Get-MSPAPIVersion -Verbose:$VerbosePreference
+    [byte[]]$v2request = get_v2_message -function MSP_BOXNAMES -Verbose:$VerbosePreference
+    $ns = [string]([System.Text.Encoding]::ASCII.GetString($v2request))
+    Write-Verbose "Sending: $ns"
+    $response = send_message_and_get_response -message $v2request -port $Global:ComPort -Verbose:$VerbosePreference
+    $ns = [string]([System.Text.Encoding]::ASCII.GetString($response))
+    Write-Verbose "Recived: $ns"
+    Return DecodeBoxNames -databytes $response -Verbose:$VerbosePreference
+}
+
+function Get-BoxIds{
+    [cmdletbinding()]
+    Param()
+    $null = Get-MSPAPIVersion -Verbose:$VerbosePreference
+    [byte[]]$v2request = get_v2_message -function MSP_BOXIDS -Verbose:$VerbosePreference
+    $ns = [string]([System.Text.Encoding]::ASCII.GetString($v2request))
+    Write-Verbose "Sending: $ns"
+    $response = send_message_and_get_response -message $v2request -port $Global:ComPort -Verbose:$VerbosePreference
+    $ns = [string]([System.Text.Encoding]::ASCII.GetString($response))
+    Write-Verbose "Recived: $ns"
+    Return DecodeBoxIds -databytes $response -Verbose:$VerbosePreference
+}
+
+function Get-Boxes{
+    [cmdletbinding()]
+    Param()
+    $null = Get-MSPAPIVersion -Verbose:$VerbosePreference
+    [byte[]]$v2request = get_v2_message -function MSP_BOXNAMES -Verbose:$VerbosePreference
+    $ns = [string]([System.Text.Encoding]::ASCII.GetString($v2request))
+    Write-Verbose "Sending: $ns"
+    $response = send_message_and_get_response -message $v2request -port $Global:ComPort -Verbose:$VerbosePreference
+    $ns = [string]([System.Text.Encoding]::ASCII.GetString($response))
+    Write-Verbose "Recived: $ns"
+    $boxes = DecodeBoxNames2 -databytes $response -Verbose:$VerbosePreference
+
+    [byte[]]$v2request = get_v2_message -function MSP_BOXIDS -Verbose:$VerbosePreference
+    $ns = [string]([System.Text.Encoding]::ASCII.GetString($v2request))
+    Write-Verbose "Sending: $ns"
+    $response = send_message_and_get_response -message $v2request -port $Global:ComPort -Verbose:$VerbosePreference
+    $ns = [string]([System.Text.Encoding]::ASCII.GetString($response))
+    Write-Verbose "Recived: $ns"
+    Return DecodeBoxIds2 -databytes $response -boxes $boxes -Verbose:$VerbosePreference
 }
 
 function Get-RXConfig{

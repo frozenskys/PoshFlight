@@ -88,11 +88,18 @@ class ModeRange
 {
     [ValidateNotNullOrEmpty()][string]$Index
     [ValidateNotNullOrEmpty()][string]$BoxId
+    [ValidateNotNullOrEmpty()][string]$BoxName
     [ValidateNotNullOrEmpty()][string]$AuxChannelIndex
     [ValidateNotNullOrEmpty()][string]$ModeLogic
     [ValidateNotNullOrEmpty()][string]$linkedTo
     [ValidateNotNullOrEmpty()][string]$RangeStart
     [ValidateNotNullOrEmpty()][string]$RangeEnd
+}
+
+class Box
+{
+    [ValidateNotNullOrEmpty()][byte]$BoxId
+    [ValidateNotNullOrEmpty()][string]$Name
 }
 
 class RXConfig
