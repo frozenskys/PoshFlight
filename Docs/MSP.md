@@ -20,7 +20,7 @@ The MSP_API_VERSION command can be used to find the API version of the device yo
 | MSP_MODE_RANGES | 34 | ModeRange[] | |
 | MSP_SET_MODE_RANGE | 35 | ModeRange | Will also handle mode_ranges_extra vaules |
 |   |   |   |   |
-| MSP_RX_CONFIG 44 | RXConfig | |
+| MSP_RX_CONFIG | 44 | RXConfig | |
 |   |   |   |   |
 | MSP_BOXNAMES | 116 | Box | Gets a list of all Aux Switch Names (BOXes) implemented as part of GetBoxes |
 |   |   |   |   |
