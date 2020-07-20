@@ -64,9 +64,39 @@ Issue the MSP_API_VERSION command to find out if the firmware supports them.
 | ConfigFlags | Uint8 | ?? | Maybe Reboot Required |
 
 ## ModeRanges
+
 | Data | Type | API Version | Notes |
 |------|------|------|-------|
 | Id | Uint8 | 1.x | |
 | AuxChannelIndex | Uint8 | 1.x | |
+| ModeLogic | Uint8 | 1.x | |
+| linkedTo | Uint8 | 1.x | |
 | RangeStart | Uint8 | 1.x | |
 | RangeEnd | Uint8 | 1.x | |
+
+## RXConfig
+
+| Data | Type | API Version | Notes |
+|------|------|------|-------|
+|serialrx_provider | Uint8 | 1.x | |
+|stick_max | Uint16 | 1.x | |
+|stick_center | Uint16 | 1.x | |
+|stick_min | Uint16 | 1.x | |
+|spektrum_sat_bind | Uint8 | 1.x | |
+|rx_min_usec | Uint16 | 1.x | |
+|rx_max_usec | Uint16 | 1.x | |
+|rcInterpolation | Uint8 | 1.20 | |
+|rcInterpolationInterval | Uint8 | 1.20 | |
+|airModeActivateThreshold | Uint16 | 1.20 | |
+|rxSpiProtocol | Uint8 | 1.31 | |
+|rxSpiId | Uint32 | 1.31 | |
+|rxSpiRfChannelCount | Uint8 | 1.31 | |
+|fpvCamAngleDegrees | Uint8 | 1.31 | |
+|rcInterpolationChannels | Uint8 | 1.40 | |
+|rcSmoothingType | Uint8 | 1.40 | |
+|rcSmoothingInputCutoff | Uint8 | 1.40 | |
+|rcSmoothingDerivativeCutoff | Uint8 | 1.40 | |
+|rcSmoothingInputType | Uint8 | 1.40 | |
+|rcSmoothingDerivativeType | Uint8 | 1.40 | |
+|usbCdcHidType | Uint8 | 1.42 | |
+|rcSmoothingAutoSmoothness | Uint8 | 1.42 | |
