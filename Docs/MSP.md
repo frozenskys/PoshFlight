@@ -17,9 +17,10 @@ The MSP_API_VERSION command can be used to find the API version of the device yo
 |   |   |   |   |
 | MSP_BATTERY_CONFIG | 32 | BatteryConfig | Gets the battery info |
 | MSP_SET_BATTERY_CONFIG | 33 | BatteryConfig | Sets the battery info |
-| MSP_MODE_RANGES | 34 | | |
+| MSP_MODE_RANGES | 34 | ModeRange[] | |
+| MSP_SET_MODE_RANGE | 35 | ModeRange | Will also handle mode_ranges_extra vaules |
 |   |   |   |   |
-| MSP_RX_CONFIG 44 | | |
+| MSP_RX_CONFIG 44 | RXConfig | |
 |   |   |   |   |
 | MSP_STATUS_EX | 150 | StatusEx | Gets the FC Status - cycletime, errors_count, CPU load, sensor present etc. |
 |   |   |   |   |
@@ -28,7 +29,6 @@ The MSP_API_VERSION command can be used to find the API version of the device yo
 
 ## Currently UnImplemented in PoshFlight
 
-    MSP_SET_MODE_RANGE:             35,
     MSP_FEATURE_CONFIG:             36,
     MSP_SET_FEATURE_CONFIG:         37,
     MSP_BOARD_ALIGNMENT_CONFIG:     38,

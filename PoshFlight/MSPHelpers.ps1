@@ -180,7 +180,8 @@ function DecodeModeRanges {
     $pos = 0
     for ($i = 0; $i -lt $modecount; $i++) {
         $range = [ModeRange]@{
-            Id = $data[$pos]
+            Index = $i
+            BoxId = $data[$pos]
             AuxChannelIndex = $data[$pos + 1]
             RangeStart = $data[$pos +2 ]
             RangeEnd = $data[$pos + 3]
@@ -189,6 +190,25 @@ function DecodeModeRanges {
         $pos += 4
     }
     return $ranges
+}
+
+function EncodeModeRange {
+    [cmdletbinding()]
+    Param(
+        [ModeRange]$moderange
+    )
+    [byte[]]$data = [byte]$([int]($moderange.Index))
+    $data += [byte]$([int]($moderange.BoxId))
+    $data += [byte]$([int]($moderange.AuxChannelIndex))
+    $data += [byte]$([int]($moderange.RangeStart))
+    $data += [byte]$([int]($moderange.RangeEnd))
+    if($Global:MSPAPIVersion -ge [version]::new(1,41,0)){
+        $data += [byte]$([int]($moderange.ModeLogic))
+        $data += [byte]$([int]($moderange.linkedTo))
+    }
+    $ns = [System.BitConverter]::ToString($data)
+    write-verbose "Encoded: $ns"
+    return $data
 }
 
 function DecodeModeRangesExtra {

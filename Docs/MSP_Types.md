@@ -67,7 +67,8 @@ Issue the MSP_API_VERSION command to find out if the firmware supports them.
 
 | Data | Type | API Version | Notes |
 |------|------|------|-------|
-| Id | Uint8 | 1.x | |
+| Index | Uint8 | N/A | Only used for PoshFlight |
+| BoxId | Uint8 | 1.x | |
 | AuxChannelIndex | Uint8 | 1.x | |
 | ModeLogic | Uint8 | 1.x | |
 | linkedTo | Uint8 | 1.x | |

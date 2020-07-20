@@ -188,6 +188,21 @@ function Get-ModeRanges{
     Return DecodeModeRangesExtra -databytes $response -moderanges $modes -Verbose:$VerbosePreference
 }
 
+function Set-ModeRange{
+    [cmdletbinding()]
+    Param(
+        [ModeRange]$moderange
+    )
+    $null = Get-MSPAPIVersion -Verbose:$VerbosePreference
+    $data = EncodeModeRange -moderange $moderange -Verbose:$VerbosePreference
+    [byte[]]$v2request = get_v2_message -function MSP_SET_MODE_RANGE -databytes $data -Verbose:$VerbosePreference
+    $ns = [string]([System.Text.Encoding]::ASCII.GetString($v2request))
+    Write-Verbose "Sending: $ns"
+    $response = send_message_and_get_response -message $v2request -port $Global:ComPort -Verbose:$VerbosePreference
+    $ns = [string]([System.Text.Encoding]::ASCII.GetString($response))
+    Write-Verbose "Recived: $ns"
+}
+
 function Get-RXConfig{
     [cmdletbinding()]
     Param()

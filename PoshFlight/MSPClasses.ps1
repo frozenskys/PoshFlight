@@ -86,7 +86,8 @@ class BatteryConfig
 
 class ModeRange
 {
-    [ValidateNotNullOrEmpty()][string]$Id
+    [ValidateNotNullOrEmpty()][string]$Index
+    [ValidateNotNullOrEmpty()][string]$BoxId
     [ValidateNotNullOrEmpty()][string]$AuxChannelIndex
     [ValidateNotNullOrEmpty()][string]$ModeLogic
     [ValidateNotNullOrEmpty()][string]$linkedTo
